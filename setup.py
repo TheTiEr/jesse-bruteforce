@@ -22,7 +22,7 @@ setup(
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/cryptocoinserver/jesse-optuna",
+    url="https://github.com/TheTiEr/jesse-bruteforce",
     install_requires=REQUIRED_PACKAGES,
     entry_points='''
         [console_scripts]

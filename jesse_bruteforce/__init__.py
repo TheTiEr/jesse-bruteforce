@@ -111,7 +111,7 @@ def run() -> None:
                 n_iter_restart=20,
             )
 
-        if mem is None or len(mem) < cfg[cfg['optimizer']]['population'] or True:
+        if True:
             #if mem is not None and len(mem) < cfg[cfg['optimizer']]['population']:
             #    print('Previous optimization has too few individuals for population. Reinitialization necessary.')
             # init empty pandas dataframe

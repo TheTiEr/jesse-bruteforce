@@ -15,9 +15,9 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name='jesse-hyperactive',
+    name='jesse-bruteforce',
     version=VERSION,
-    author="cryptocoinserver",
+    author="TheTiEr",
     packages=find_packages(),
     description=DESCRIPTION,
     long_description=long_description,
@@ -26,7 +26,7 @@ setup(
     install_requires=REQUIRED_PACKAGES,
     entry_points='''
         [console_scripts]
-        jesse-hyperactive=jesse_hyperactive.__init__:cli
+        jesse-bruteforce=jesse_bruteforce.__init__:cli
     ''',
     classifiers=[
         "Programming Language :: Python :: 3",

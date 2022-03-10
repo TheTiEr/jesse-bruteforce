@@ -110,6 +110,15 @@ def run() -> None:
                 rand_rest_p=cfg[cfg['optimizer']]['rand_rest_p'],
                 n_iter_restart=cfg[cfg['optimizer']]['n_iter_restart'],
             )
+        
+        elif cfg['optimizer'] == "StochasticHillClimbingOptimizer":
+            optimizer = hyperactive.optimizers.StochasticHillClimbingOptimizer(
+                epsilon=cfg[cfg['optimizer']]['epsilon'],
+                distribution=cfg[cfg['optimizer']]['distribution'],
+                n_neighbours=cfg[cfg['optimizer']]['n_neighbours'],
+                rand_rest_p=cfg[cfg['optimizer']]['rand_rest_p'],
+                n_iter_restart=cfg[cfg['optimizer']]['n_iter_restart'],
+            )
 
         if True:
             #if mem is not None and len(mem) < cfg[cfg['optimizer']]['population']:

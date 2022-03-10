@@ -2,12 +2,13 @@
 fitness-ratio: 'smart sharpe'
 optimal-total: 100
 
-optimizer: 'EvolutionStrategyOptimizer'
+optimizer: 'RandomRestartHillClimbingOptimizer'
 n_iter: 1000
 
 # -1 all cpu
-n_jobs: -1
+n_jobs: 8
 
+# 'EvolutionStrategyOptimizer'
 EvolutionStrategyOptimizer:
   population: 300
   mutation_rate: 0.0333
@@ -15,31 +16,35 @@ EvolutionStrategyOptimizer:
   rand_rest_p: 0.05 # swapping_prob
 
 
-strategy_name: 'Test'
+# 'RandomRestartHillClimbingOptimizer'
+RandomRestartHillClimbingOptimizer:
+  epsilon: 0.1
+  distribution: "laplace"
+  n_neighbours: 4
+  rand_rest_p: 0.1 # swapping_prob
+  n_iter_restart: 30
 
-starting_balance: 5000
-fee: 0.001
+strategy_name: 'RaptorMKIV'
+
+starting_balance: 1000
+fee: 0.00075
 futures_leverage: 1
 futures_leverage_mode: cross
 settlement_currency: USDT
-warm_up_candles: 240
+warm_up_candles: 1000
 exchange: Binance
-symbol: 'BTC-USDT'
-timeframe: '1h'
+symbol: 'LUNA-USDT'
+timeframe: '15m'
 
 timespan-train:
-  start_date: '2020-01-01'
-  finish_date: '2021-01-01'
+  start_date: '2021-10-01'
+  finish_date: '2022-01-01'
 timespan-testing:
   start_date: '2021-01-01'
-  finish_date: '2021-11-01'
+  finish_date: '2022-03-08'
 
 extra_routes:
   0:
     exchange: 'Binance'
-    symbol: 'BTC-USDT'
-    timeframe: '1D'
-  1:
-    exchange: 'Binance'
-    symbol: 'BNB-USDT'
-    timeframe: '1D'
+    symbol: 'LUNA-USDT'
+    timeframe: '15m'

@@ -30,7 +30,6 @@ StochasticHillClimbingOptimizer:
   distribution: "normal"
   n_neighbours: 4
   rand_rest_p: 0.1 # swapping_prob
-  n_iter_restart: 30
 
 strategy_name: 'RaptorMKIV'
 

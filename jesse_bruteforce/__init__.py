@@ -117,7 +117,6 @@ def run() -> None:
                 distribution=cfg[cfg['optimizer']]['distribution'],
                 n_neighbours=cfg[cfg['optimizer']]['n_neighbours'],
                 rand_rest_p=cfg[cfg['optimizer']]['rand_rest_p'],
-                n_iter_restart=cfg[cfg['optimizer']]['n_iter_restart'],
             )
 
         if True:

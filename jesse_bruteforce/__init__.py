@@ -93,7 +93,7 @@ def run() -> None:
 
     hyper = hyperactive.Hyperactive(distribution="joblib")
 
-    if cfg['optimizer'] in ["EvolutionStrategyOptimizer", "RandomRestartHillClimbingOptimizer"]:
+    if cfg['optimizer'] in ["EvolutionStrategyOptimizer", "RandomRestartHillClimbingOptimizer", "StochasticHillClimbingOptimizer"]:
         if cfg['optimizer'] == "EvolutionStrategyOptimizer":
             optimizer = hyperactive.optimizers.EvolutionStrategyOptimizer(
                 population=cfg[cfg['optimizer']]['population'],

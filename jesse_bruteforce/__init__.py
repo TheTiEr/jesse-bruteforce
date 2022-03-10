@@ -157,39 +157,44 @@ def get_config():
 
 def objective(opt):
     cfg = get_config()
+
     try:
-        testing_data_metrics = backtest_function(cfg['timespan-testing']['start_date'],
-                                                 cfg['timespan-testing']['finish_date'], opt, cfg)
+        training_data_metrics = backtest_function(cfg['timespan-train']['start_date'],
+                                                  cfg['timespan-train']['finish_date'],
+                                                  opt, cfg)
     except Exception as err:
         logger.error("".join(traceback.TracebackException.from_exception(err).format()))
         return np.nan
 
-    if testing_data_metrics is None:
+    if training_data_metrics is None:
         return np.nan
 
-    total_effect_rate = np.log10(testing_data_metrics['total']) / np.log10(cfg['optimal-total'])
+    if training_data_metrics['total'] <= 5:
+        return np.nan
+
+    total_effect_rate = np.log10(training_data_metrics['total']) / np.log10(cfg['optimal-total'])
     total_effect_rate = min(total_effect_rate, 1)
     ratio_config = cfg['fitness-ratio']
     if ratio_config == 'sharpe':
-        ratio = testing_data_metrics['sharpe_ratio']
+        ratio = training_data_metrics['sharpe_ratio']
         ratio_normalized = jh.normalize(ratio, -.5, 5)
     elif ratio_config == 'calmar':
-        ratio = testing_data_metrics['calmar_ratio']
+        ratio = training_data_metrics['calmar_ratio']
         ratio_normalized = jh.normalize(ratio, -.5, 30)
     elif ratio_config == 'sortino':
-        ratio = testing_data_metrics['sortino_ratio']
+        ratio = training_data_metrics['sortino_ratio']
         ratio_normalized = jh.normalize(ratio, -.5, 15)
     elif ratio_config == 'omega':
-        ratio = testing_data_metrics['omega_ratio']
+        ratio = training_data_metrics['omega_ratio']
         ratio_normalized = jh.normalize(ratio, -.5, 5)
     elif ratio_config == 'serenity':
-        ratio = testing_data_metrics['serenity_index']
+        ratio = training_data_metrics['serenity_index']
         ratio_normalized = jh.normalize(ratio, -.5, 15)
     elif ratio_config == 'smart sharpe':
-        ratio = testing_data_metrics['smart_sharpe']
+        ratio = training_data_metrics['smart_sharpe']
         ratio_normalized = jh.normalize(ratio, -.5, 5)
     elif ratio_config == 'smart sortino':
-        ratio = testing_data_metrics['smart_sortino']
+        ratio = training_data_metrics['smart_sortino']
         ratio_normalized = jh.normalize(ratio, -.5, 15)
     else:
         raise ValueError(
@@ -200,6 +205,18 @@ def objective(opt):
     score = total_effect_rate * ratio_normalized
 
 
+    if score < 1:
+        return np.nan
+
+    try:
+        testing_data_metrics = backtest_function(cfg['timespan-testing']['start_date'],
+                                                 cfg['timespan-testing']['finish_date'], opt, cfg)
+    except Exception as err:
+        logger.error("".join(traceback.TracebackException.from_exception(err).format()))
+        return np.nan
+
+    if testing_data_metrics is None:
+        return np.nan
     # you can access the entire dictionary from "para"
     parameter_dict = opt.para_dict
 

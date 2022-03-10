@@ -104,18 +104,18 @@ def run() -> None:
 
         elif cfg['optimizer'] == "RandomRestartHillClimbingOptimizer":
             optimizer = hyperactive.optimizers.RandomRestartHillClimbingOptimizer(
-                epsilon=0.1,
-                distribution="laplace",
-                n_neighbours=4,
-                rand_rest_p=0.1,
-                n_iter_restart=20,
+                epsilon=cfg[cfg['optimizer']]['epsilon'],
+                distribution=cfg[cfg['optimizer']]['distribution'],
+                n_neighbours=cfg[cfg['optimizer']]['n_neighbours'],
+                rand_rest_p=cfg[cfg['optimizer']]['rand_rest_p'],
+                n_iter_restart=cfg[cfg['optimizer']]['n_iter_restart'],
             )
 
         if True:
             #if mem is not None and len(mem) < cfg[cfg['optimizer']]['population']:
             #    print('Previous optimization has too few individuals for population. Reinitialization necessary.')
             # init empty pandas dataframe
-            search_data = pd.DataFrame(columns=[k for k in search_space.keys()] + ["score"] + [f'training_{k}' for k in empty_backtest_data.keys()] + [f'testing_{k}' for k in empty_backtest_data.keys()])
+            search_data = pd.DataFrame(columns=[k for k in search_space.keys()] + ["score"] + [f'testing_{k}' for k in empty_backtest_data.keys()])
             with open(path, "w") as f:
                 search_data.to_csv(f, sep="\t", index=False, na_rep='nan')
 

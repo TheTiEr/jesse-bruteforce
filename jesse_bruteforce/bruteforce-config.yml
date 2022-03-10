@@ -18,8 +18,8 @@ EvolutionStrategyOptimizer:
 
 # 'RandomRestartHillClimbingOptimizer'
 RandomRestartHillClimbingOptimizer:
-  epsilon: 0.1
-  distribution: "laplace"
+  epsilon: 0.3
+  distribution: "normal"
   n_neighbours: 4
   rand_rest_p: 0.1 # swapping_prob
   n_iter_restart: 30

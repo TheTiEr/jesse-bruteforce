@@ -104,6 +104,7 @@ def run() -> None:
 
         elif cfg['optimizer'] == "RandomRestartHillClimbingOptimizer":
             optimizer = hyperactive.optimizers.RandomRestartHillClimbingOptimizer(
+                population=cfg[cfg['optimizer']]['population'],
                 epsilon=0.1,
                 distribution="laplace",
                 n_neighbours=4,

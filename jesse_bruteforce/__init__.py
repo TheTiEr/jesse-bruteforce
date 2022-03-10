@@ -104,7 +104,6 @@ def run() -> None:
 
         elif cfg['optimizer'] == "RandomRestartHillClimbingOptimizer":
             optimizer = hyperactive.optimizers.RandomRestartHillClimbingOptimizer(
-                population=cfg[cfg['optimizer']]['population'],
                 epsilon=0.1,
                 distribution="laplace",
                 n_neighbours=4,
@@ -121,7 +120,7 @@ def run() -> None:
                 search_data.to_csv(f, sep="\t", index=False, na_rep='nan')
 
             hyper.add_search(objective, search_space, optimizer=optimizer,
-                             initialize={"random": cfg[cfg['optimizer']]['population']},
+                             initialize={"random": 300},
                              n_iter=cfg['n_iter'],
                              n_jobs=cfg['n_jobs'])
         else:
